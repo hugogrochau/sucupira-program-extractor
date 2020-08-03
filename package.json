@@ -1,0 +1,53 @@
+{
+  "name": "sucupira-program-extractor",
+  "version": "1.0.0",
+  "description": "CLI tool to extract groups information for the capes sucupira platform",
+  "main": "src/index.ts",
+  "dependencies": {
+    "@types/cheerio": "^0.22.21",
+    "@types/node-fetch": "^2.5.7",
+    "@types/ramda": "^0.27.14",
+    "@types/sqlstring": "^2.2.1",
+    "@typescript-eslint/eslint-plugin": "^3.7.1",
+    "chalk": "^4.1.0",
+    "cheerio": "^1.0.0-rc.3",
+    "commander": "^6.0.0",
+    "date-fns": "^2.15.0",
+    "eslint": "^7.6.0",
+    "eslint-config-airbnb-typescript": "^9.0.0",
+    "eslint-loader": "^4.0.2",
+    "eslint-plugin-import": "^2.22.0",
+    "node-fetch": "^2.6.0",
+    "ramda": "^0.27.1",
+    "rimraf": "^3.0.2",
+    "sql-template-strings": "^2.2.2",
+    "sqlite": "^4.0.12",
+    "sqlite3": "^5.0.0",
+    "sqlstring": "^2.3.2",
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.7"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "eslint src/**/*.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hugogrochau/sucupira-program-extractor.git"
+  },
+  "keywords": [
+    "sucupira",
+    "capes",
+    "extractor",
+    "scraping",
+    "research"
+  ],
+  "author": "Hugo Grochau <hugo@grochau.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/hugogrochau/sucupira-program-extractor/issues"
+  },
+  "homepage": "https://github.com/hugogrochau/sucupira-program-extractor#readme"
+}
