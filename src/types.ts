@@ -13,6 +13,8 @@ export interface AreaUniversity extends Record<string, number | string> {
   numeroDeCursos: number
 }
 
+export type SimplifiedAreaUniversity = Pick<AreaUniversity, 'id' | 'idAreaAvaliacao' | 'idAreaConhecimento'>
+
 export interface UniversityProgram extends Record<string, number | string | Date> {
   id: string
   idUniversidade: number

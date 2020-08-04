@@ -1,27 +1,9 @@
 import cheerio from 'cheerio'
-import { logger } from './logger'
-import { fetchPageHtml } from './fetchPageHtml'
-import { saveEntity } from './database'
-import { AreaUniversity, Area } from './types'
-
-interface GetParamsFromUrlOpts {
-  host?: string
-}
-const getParamsFromUrl = <T extends string>
-  (url: string, params: T[], options: GetParamsFromUrlOpts = {}): Record<T, string> => {
-  const parsedUrl = new URL(url, options.host)
-  const result: Partial<Record<T, string>> = {}
-  params.forEach((param) => {
-    const paramValue = parsedUrl.searchParams.get(param)
-    if (paramValue === null) {
-      throw new Error(`Param ${paramValue} does not exist`)
-    }
-
-    result[param] = paramValue
-  })
-
-  return result as Record<T, string>
-}
+import { logger } from '../logger'
+import { fetchPageHtml } from '../utils/fetchPageHtml'
+import { saveEntity } from '../database'
+import { AreaUniversity, Area } from '../types'
+import { getParamsFromUrl } from '../utils/getParamsFromUrl'
 
 export const importArea = async (url: string): Promise<void> => {
   try {
@@ -40,6 +22,8 @@ export const importArea = async (url: string): Promise<void> => {
       const numeroDeProgramas = +$('td:nth-child(3)').text()
       const numeroDeCursos = +$('td:nth-child(10)').text()
       const params = getParamsFromUrl(universityUrl, ['ies'], { host: 'https://sucupira.capes.gov.br/' })
+
+      logger.debug(`Parsed university ${nome} (${params.ies})`)
       areaUniversities.push({
         id: +params.ies,
         idAreaAvaliacao: +areaAvaliacao,
@@ -60,6 +44,7 @@ export const importArea = async (url: string): Promise<void> => {
       ...areaUniversitiesPromises,
       saveEntity(area, 'area'),
     ])
+    logger.info(`Saved ${areaUniversities.length} universities`)
   } catch (err) {
     logger.error(err.message)
   }

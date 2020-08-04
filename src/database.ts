@@ -4,6 +4,7 @@ import { Database } from 'sqlite3'
 import { SQL } from 'sql-template-strings'
 import { escape } from 'sqlstring'
 import { logger } from './logger'
+import { SimplifiedAreaUniversity } from './types'
 
 let db: sqlite.Database
 
@@ -62,4 +63,21 @@ export const saveEntity = async <T extends Record<string, unknown>>
   const statement = generateReplaceStatement(entity, entityName)
 
   await db.run(statement)
+}
+
+export const getAreaUniversities = async (
+  offset?: number, limit?: number,
+): Promise<SimplifiedAreaUniversity[]> => {
+  const statement = SQL`SELECT "id", "idAreaAvaliacao", "idAreaConhecimento" FROM "areaUniversity"`
+  if (limit) {
+    statement.append(` LIMIT ${limit}`)
+  }
+
+  if (offset) {
+    statement.append(` OFFSET ${offset}`)
+  }
+
+  const result = await db.all<SimplifiedAreaUniversity[]>(statement)
+
+  return result
 }
