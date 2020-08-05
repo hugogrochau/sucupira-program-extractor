@@ -15,7 +15,7 @@ export interface AreaUniversity extends Record<string, number | string> {
 
 export type SimplifiedAreaUniversity = Pick<AreaUniversity, 'id' | 'idAreaAvaliacao' | 'idAreaConhecimento'>
 
-export interface UniversityProgram extends Record<string, number | string | Date> {
+export interface UniversityProgram extends Record<string, number | string | Date | null> {
   id: string
   idUniversidade: number
   nome: string
@@ -27,17 +27,18 @@ export interface UniversityProgram extends Record<string, number | string | Date
   cep: string
   logradouro: string
   numero: string
-  complemento: string
+  complemento: string | null
   bairro: string
   municipio: string
-  fax: string
-  telefone: string
-  ramal: string
+  fax: string | null
+  telefone: string | null
+  ramal: string | null
   emailDoPrograma: string
   url: string
   inicio: Date
-  coord_latitude: number
-  coord_long: number
+  fim: Date | null
+  coordLatitude: number
+  coordLongitude: number
   nivel: string
   codigoCurso: string
   notaCurso: string
@@ -48,3 +49,5 @@ export interface UniversityProgram extends Record<string, number | string | Date
   equivalenciaHoraCredito: number
   situacaoCurso: string
 }
+
+export type PartialUniversityProgram = Partial<UniversityProgram> & Pick<UniversityProgram, 'id' | 'idUniversidade' | 'nome'>

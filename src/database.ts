@@ -58,7 +58,7 @@ const generateReplaceStatement = (object: Record<string, unknown>, table: string
 
 export const saveEntity = async <T extends Record<string, unknown>>
 (entity: T, entityName: string): Promise<void> => {
-  logger.info(`Saving ${entityName} ${entity.id || JSON.stringify(entity)} to database`)
+  logger.debug(`Saving ${entityName} ${entity.id || JSON.stringify(entity)} to database`)
 
   const statement = generateReplaceStatement(entity, entityName)
 
@@ -80,4 +80,19 @@ export const getAreaUniversities = async (
   const result = await db.all<SimplifiedAreaUniversity[]>(statement)
 
   return result
+}
+
+export const getPrograms = async (
+  offset?: number, limit?: number,
+): Promise<{ id: string; idUniversidade: number}[]> => {
+  const statement = SQL`SELECT "id", "idUniversidade" FROM "universityProgram"`
+  if (limit) {
+    statement.append(` LIMIT ${limit}`)
+  }
+
+  if (offset) {
+    statement.append(` OFFSET ${offset}`)
+  }
+
+  return db.all(statement)
 }

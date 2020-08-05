@@ -20,11 +20,15 @@ export const importUniversityPrograms = async (params: SimplifiedAreaUniversity)
     }
 
     const { cd_programa: programId } = getParamsFromUrl(programUrl, ['cd_programa'], { host: 'https://sucupira.capes.gov.br/' })
-    programs.push({
+    const program = {
       idUniversidade: id,
       nome,
       id: programId,
-    })
+    }
+    if (!programId || !id || !nome) {
+      throw new Error(`Invalid program ${JSON.stringify(program)}`)
+    }
+    programs.push(program)
 
     logger.debug(`Parsed program ${nome}`)
   })
