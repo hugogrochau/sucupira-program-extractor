@@ -4,7 +4,7 @@ import { Database } from 'sqlite3'
 import { SQL } from 'sql-template-strings'
 import { escape } from 'sqlstring'
 import { logger } from './logger'
-import { SimplifiedAreaUniversity } from './types'
+import { SimplifiedAreaUniversity, UniversityProgram } from './types'
 
 let db: sqlite.Database
 
@@ -86,6 +86,22 @@ export const getPrograms = async (
   offset?: number, limit?: number,
 ): Promise<{ id: string; idUniversidade: number}[]> => {
   const statement = SQL`SELECT "id", "idUniversidade" FROM "universityProgram"`
+  if (limit) {
+    statement.append(` LIMIT ${limit}`)
+  }
+
+  if (offset) {
+    statement.append(` OFFSET ${offset}`)
+  }
+
+  return db.all(statement)
+}
+
+export const getFullPrograms = async (
+  offset?: number, limit?: number,
+): Promise<UniversityProgram[]> => {
+  const statement = SQL`SELECT "universityProgram".*, "areaUniversity"."nome" AS "nomeUniversidade", "areaUniversity"."uf" AS ufUniversidade FROM "universityProgram"
+  LEFT JOIN "areaUniversity" ON "areaUniversity"."id" = "universityProgram"."idUniversidade"`
   if (limit) {
     statement.append(` LIMIT ${limit}`)
   }

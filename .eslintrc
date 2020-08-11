@@ -14,6 +14,7 @@
     "@typescript-eslint/no-unsafe-call": "off",
     "@typescript-eslint/no-unsafe-member-access": "off",
     "@typescript-eslint/semi": ["error", "never"],
+    "@typescript-eslint/no-use-before-define": "off",
     "import/prefer-default-export": "off",
     "@typescript-eslint/member-delimiter-style": ["error", {
       "multiline": {
