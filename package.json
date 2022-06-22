@@ -24,7 +24,7 @@
     "rimraf": "^3.0.2",
     "sql-template-strings": "^2.2.2",
     "sqlite": "^4.0.12",
-    "sqlite3": "^5.0.0",
+    "sqlite3": "^5.0.3",
     "sqlstring": "^2.3.2",
     "ts-node": "^8.10.2",
     "typescript": "^3.9.7"
